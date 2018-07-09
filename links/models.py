@@ -10,7 +10,6 @@ class ShortURL(models.Model):
     description = models.TextField(blank=True)
     thumbnail = models.ImageField(upload_to='thumbnails/%m/', blank=True)
     permanent_url = models.CharField(max_length=20, blank=True)
-    count = models.IntegerField(default=0)
     mode = models.IntegerField(default=301)
 
     def __str__(self):

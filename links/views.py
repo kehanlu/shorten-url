@@ -153,12 +153,13 @@ def perm_url(request, permanent_url):
         short_url=shortcut,
         ip=request.META.get('REMOTE_ADDR')
     )
-    print('meow')
+
     if shortcut.mode == 301:
         return redirect(shortcut.target)
     else:
         image_url = 'https://' + request.get_host()
-        image_url += str(shortcut.thumbnail.url) if shortcut.thumbnail else '/static/images/default_thumbnail.png'
+        image_url += str(shortcut.thumbnail.url) if shortcut.thumbnail else (
+            settings.STATIC_URL + '/images/default_thumbnail.png')
 
         context = {
             'url': shortcut.target,
