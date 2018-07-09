@@ -1,10 +1,10 @@
 # Shorten url
 
-![](https://img.shields.io/badge/Django-2.0-blue.svg) (以2.0開發，但應該可以相容到很久之前的版本)
+![](https://img.shields.io/badge/Django-2.0-blue.svg) *(以2.0開發，但應該可以相容到很久之前的版本)*
 
 1. 簡單生成如 goo.gl/xxxx 的短網址 `https://yourdomain.com/u/asdf`
 
-2. 或是自訂網址 `https://yourdomain.com/links/hank_has_no_life` 的meta tag 使得在 FB、Line 等達到自訂縮圖、標題的效果。
+2. 自訂網址 `https://yourdomain.com/links/hank_has_no_life` 的meta tag 使得在 FB、Line 等達到自訂縮圖、標題的效果。
 
 3. 可以查看流量統計圖
 
@@ -19,17 +19,21 @@
 
 ## Usage
 
+> https://tedxntust.com/links/hank
+> 
+> 可以自訂網址，標題、描述和縮圖也可以
+
+![](https://i.imgur.com/4fs2IOR.png)
+
 
 
 ## Installation
-
-### 基本設定
 
 ```
 $ python manage.py migrate
 ```
 
-#### yoursite/settings.py
+#### settings.py
 
 ```python
 INSTALLED_APP = [
@@ -58,7 +62,7 @@ urlpatterns = [
 #### links/views.py
 
 ```python
-# 短網址的 base *切記以 http...開頭*
+# 短網址的 BASE 以 http...開頭
 BASE_URL = 'https://yourdomain.com/links/'
 BASE_SHORT_URL = 'https://yourdomain.com/u/'
 
