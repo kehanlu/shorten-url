@@ -1,0 +1,59 @@
+{% extends 'links/base.html'%}
+
+{% block header %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <h1 class="title is-spaced">{{BASE_SHORT_URL}}{{permanent_url}}</h1>
+        <h2 class="subtitle"><strong>Total views:</strong> {{total_views}}</h2>
+        <h2 class="subtitle"><strong>Last view:</strong> {{last_view}}</h2>
+        <canvas id="myChart"></canvas>        
+    </div>
+</section>
+{% endblock %}
+
+{% block footer_scripts %}
+<script>
+var ctx = $("#myChart");
+var chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: {{labels | safe}},
+        datasets: [{
+            label: "Viewers: ",
+            data: {{data | safe}},
+        }],
+    },
+    options: {
+        responsive: true,
+        elements: {
+            line: {
+                tension: 0.2,
+            }
+        },
+        scales:{
+            xAxes:[{
+                scaleLabel:{
+                    labelString: 'Date',
+                    display:true,
+                }
+            }],
+            yAxes:[{
+                scaleLabel:{
+                    labelString: 'Viewers',
+                    display:true,
+                },ticks: {
+                    beginAtZero: true,
+                    stepSize: 5,
+                }
+
+
+            }]
+        }
+    }
+});
+</script>
+{% endblock %}

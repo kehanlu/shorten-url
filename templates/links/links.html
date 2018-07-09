@@ -1,0 +1,347 @@
+{% extends 'links/base.html'%}
+{% block header %}
+<style type="text/css">
+#tab_container .container_item {
+  display: none;
+}
+
+#tab_container .container_item.is-active {
+  display: block;
+}
+</style>
+{% endblock %}
+
+{% block content%}
+<section class="section">
+  <div class="container">
+    <div class="tabs" id="tab_header">
+      <ul>
+        <li class="item is-active" data-option="301"><a>Fast generate</a></li>
+        <li class="item" data-option="302"><a>Custom generate</a></li>
+        <li class="item"><a target="_blank" href="https://github.com/kehanlu"><img width="24px" src="https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png"></a></li>
+      </ul>
+    </div>
+    <div class="box" id="tab_container">
+      <div id="301_form" class="container_item is-active" data-item="301">
+
+        <div class="field is-grouped">
+          <p class="control is-expanded">
+            <input name='target' class="input is-info" type="text" placeholder="https://">
+          </p>
+          <p class="control">
+            <a class="button is-info" id="301_button">SHORTEN URL</a>
+          </p>
+        </div>
+
+
+      </div>
+      <form id="302_form" enctype="multipart/form-data">
+      <div class="container_item" data-item="302">
+        <div class="field is-horizontal">
+          <div class="field-label">
+            <label class="label">URL</label>
+          </div>
+          <div class="field-body">
+            <div class="field">
+              <p class="control is-expanded">
+                <input name="target" class="input is-info" type="text" placeholder="https://">
+              </p>
+            </div>
+
+          </div>
+        </div>
+        <br>
+        <br>
+        <div class="field is-horizontal">
+          <div class="field-label is-normal">
+            <label class="label">Name</label>
+          </div>
+          <div class="field-body">
+            <div class="field has-addons">
+              <p class="control">
+                <a class="button is-static">
+                  {{BASE_URL}}
+                </a>
+              </p>
+              <p class="control is-expanded">
+                <input name="name" class="input" type="text" placeholder="url you want">
+              </p>
+            </div>
+
+          </div>
+        </div>
+        <br>
+        <div class="field is-horizontal">
+          <div class="field-label is-normal">
+            <label class="label">Title</label>
+          </div>
+          <div class="field-body">
+            <div class="field">
+              <p class="control is-expanded">
+                <input name="title" class="input" type="text" placeholder="Your title">
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="field is-horizontal">
+          <div class="field-label is-normal">
+            <label class="label">Description</label>
+          </div>
+          <div class="field-body">
+            <div class="field">
+              <p class="control is-expanded">
+                <textarea name="description" class="textarea" placeholder=""></textarea>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="field is-horizontal">
+          <div class="field-label is-normal">
+            <label class="label">Thumbnail</label>
+          </div>
+          <div class="field-body">
+
+            <div class="file has-name">
+              <label class="file-label">
+                <input name="file" class="file-input" type="file" name="resume" id="thumbnail_upload">
+                <span class="file-cta">
+                      <span class="file-icon">
+                        <i class="fas fa-upload"></i>
+                      </span>
+                <span class="file-label">
+                        Choose a file…
+                      </span>
+                </span>
+                <span class="file-name" id="thumbnail_upload_filename">
+                      thumbnail
+                    </span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <br>
+        <div class="field is-horizontal">
+          <div class="field-label is-normal">
+            <label class="label"></label>
+          </div>
+          <div class="field-body">
+            <div class="field">
+              <p class="control">
+                <div class="buttons is-right">
+                  <a id="302_button" class="button is-info">
+                    SHORTEN URL
+                  </a>
+                </div>
+              </p>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+      {% csrf_token %}
+      </form>
+    </div>
+
+    <article id="fail_msg_dialog" class="message is-danger" style="display: none">
+      <div class="message-body">
+        <h2 class="title is-6 is-spaced">Something went wrong!</h2>
+        <h3 id="fail_msg" class="subtitle"></h2>
+      </div>
+    </article>
+
+    <article id="301_dialog" class="message is-primary" style="display: none">
+      <div class="message-body">
+        <h2 class="title is-6">Permanent url</h2>
+        <div class="field has-addons">
+          <p class="control is-expanded">
+            <input name="permanent_url" class="input" type="text">
+          </p>
+          <p class="control">
+            <a id="301_copy_button" class="button">COPY</a>
+          </p>
+        </div>
+      </div>
+    </article>
+
+
+    <article id="302_dialog" class="message is-primary" style="display: none">
+      <div class="message-body">
+        <div id="name">
+          <h2 class="title is-6">Custom url</h2>
+          <div class="field has-addons">
+            <p class="control is-expanded">
+              <input name="name" class="input" type="text">
+            </p>
+            <p class="control">
+              <a id="302_copy_button" class="button">COPY</a>
+            </p>
+          </div>
+        </div>
+
+        <br>
+        <h2 class="title is-6">Permanent url</h2>
+        <div class="field has-addons">
+          <p class="control is-expanded">
+            <input name="permanent_url" class="input" type="text">
+          </p>
+          <p class="control">
+            <a id="302_permanent_copy_button" class="button">COPY</a>
+          </p>
+        </div>
+        <br>
+        <div class="content">
+          <strong>Title：  </strong><p id="title"></p><br>
+          <strong>Description：  </strong><p id="description"></p><br>
+          <strong>thumbnail：  </strong><p id="thumbnail"></p><br>
+
+        </div>
+
+      </div>
+    </article>
+    
+
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <table class="table is-fullwidth" style="word-wrap : break-word; table-layout: fixed;">
+      <thead>
+        <tr>
+          <th>Target</th>
+          <th>Permanent url</th>
+          <th>Custom url</th>
+          <th>Title</th>
+          <th>Views</th>
+          <th>Analysis</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        {% for short in recent%}
+        <tr>
+          <td><a href="{{short.target}}">{{short.target}}</a></td>
+          <td><a href="{{BASE_SHORT_URL}}{{short.permanent_url}}">{{BASE_SHORT_URL}}{{short.permanent_url}}</a></td>
+          <td>{% if short.name %}<a href="{{BASE_URL}}{{short.name}}">{{BASE_URL}}{{short.name}}</a> {% endif %}</td>
+          <td>{% if short.mode == 302%}<span class="icon"><i class="fab fa-angellist"></i></span>{%endif%}{{short.title}}</td>
+          <td>{{short.viewers.all.count}}</td>
+          <td>{% if short.viewers.all.count %}<a class="button" href="{{BASE_URL}}{{short.permanent_url}}/chart">chart {% endif %}</td>
+        </tr>
+        {% endfor %}
+        
+      </tbody>
+    </table>
+  </div>
+</section>
+
+
+
+{% endblock%}
+
+
+{% block footer_scripts %}
+<script>
+  $("#301_button").click(function(){
+    $("#fail_msg_dialog").fadeOut();
+    $("#301_dialog").fadeOut();
+    $("#302_dialog").fadeOut();
+
+    $.ajax({
+        'method':'post',
+        'url':'/links/create_301/',
+        'data':{
+          'target': $('#301_form input[name="target"]').val(),
+          'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
+        }
+      }
+    ).done(function(data){
+      if (data.status == 200){
+        $("#301_dialog input[name='permanent_url']").val('{{BASE_SHORT_URL}}' + data.permanent_url)
+        $("#301_dialog").fadeIn();
+      }else if(data.status == 400){
+        $("#fail_msg_dialog #fail_msg").html(data.msg)
+        $("#fail_msg_dialog").fadeIn();
+      }
+    })
+  });
+
+  $("#302_button").click(function(){
+
+    $("#fail_msg_dialog").fadeOut();
+    $("#301_dialog").fadeOut();
+    $("#302_dialog").fadeOut();
+
+    $.ajax({
+      'url': '/links/create_302/',
+      'type': 'POST',
+      'cache': false,
+      'data': new FormData($('#302_form')[0]),
+      'processData': false,
+      'contentType': false
+    }).done(function(data){
+      if(data.status == 200){
+        if(data.name=='noname')
+          $('#302_dialog #name').hide();
+        else{
+          $('#302_dialog #name').show();
+          $('#302_dialog input[name="name"]').val('{{BASE_URL}}' + data.name);
+        }
+        
+        $('#302_dialog input[name="permanent_url"]').val('{{BASE_SHORT_URL}}' + data.permanent_url);
+        $('#302_dialog #title').html(data.title);
+        $('#302_dialog #description').html(data.description);
+        $('#302_dialog #thumbnail').html('<img src="'+data.thumbnail+'">');
+        $('#302_dialog').fadeIn()
+      }
+      else if(data.status == 400){
+        $("#fail_msg_dialog #fail_msg").html(data.msg)
+        $("#fail_msg_dialog").fadeIn();
+      }
+    })
+  })
+</script>
+<script>
+  $('#301_copy_button').click(function() {
+    var copyText = $("#301_dialog input[name='permanent_url']");
+    copyText.select();
+    document.execCommand("Copy");
+  });
+
+  $('#302_copy_button').click(function() {
+    var copyText = $("#302_dialog input[name='name']");
+    copyText.select();
+    document.execCommand("Copy");
+  });
+  $('#302_permanent_copy_button').click(function() {
+    var copyText = $("#302_dialog input[name='permanent_url']");
+    copyText.select();
+    document.execCommand("Copy");
+  });
+
+</script>
+<script>
+$(document).ready(function() {
+  $('#tab_header ul li.item').on('click', function() {
+    var number = $(this).data('option');
+    $('#tab_header ul li.item').removeClass('is-active');
+    $(this).addClass('is-active');
+    $('#tab_container .container_item').removeClass('is-active');
+    $('div[data-item="' + number + '"]').addClass('is-active');
+  });
+});
+
+var thumbnail_upload = document.getElementById("thumbnail_upload");
+thumbnail_upload.onchange = function(){
+    if(thumbnail_upload.files.length > 0)
+    {
+      document.getElementById('thumbnail_upload_filename').innerHTML = thumbnail_upload.files[0].name;
+
+    }
+};
+</script>
+{% endblock %}
