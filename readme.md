@@ -10,7 +10,7 @@
 
 - [Usage](#usage)
 - [Installation](#installation)
-- [Demo](#usage)
+- [Demo](#demo)
     - [快速生成](#fast-gernerate)
     - [自訂網址](#custom-gernerate)
     - [錯誤訊息](#錯誤訊息)
@@ -76,7 +76,7 @@ DEFAULT_DESCRIPTION = ''
 自訂轉址的預設圖
 
 
-## Usage
+## Demo
 
 ### Fast Gernerate
 輸入網址，然後按下按鈕，大概等個 0.5 秒就跑出來了～
