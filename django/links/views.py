@@ -15,7 +15,7 @@ BASE_URL = 'http://localhost:8001/links/'
 BASE_SHORT_URL = 'http://localhost:8001/u/'
 
 # hash salt when generate permanent url
-HASH_SALT = 'meow'
+HASH_SALT = 'MEOW'
 
 # give default value when you create_302
 DEFAULT_NAME = ''
@@ -108,7 +108,7 @@ def create_302(request):
             'target': target,
             'title': title,
             'description': description,
-            'thumbnail': (MEDIA_URL + str(shortcut.thumbnail) if shortcut.thumbnail else (settings.STATIC_URL + '/images/default_thumbnail.png')),
+            'thumbnail': (settings.MEDIA_URL + str(shortcut.thumbnail) if shortcut.thumbnail else (settings.STATIC_URL + '/images/default_thumbnail.png')),
         }
         return JsonResponse(context)
 
@@ -133,6 +133,7 @@ def custom_url(request, custom_url):
         image_url = 'https://' + request.get_host()
         image_url += str(shortcut.thumbnail.url) if shortcut.thumbnail else (
             settings.STATIC_URL + '/images/default_thumbnail.png')
+
         context = {
             'url': shortcut.target,
             'title': shortcut.title,
