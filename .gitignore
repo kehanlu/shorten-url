@@ -1,5 +1,6 @@
 .DS_STORE
 db.sqlite3
+django/media/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

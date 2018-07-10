@@ -11,8 +11,8 @@ from django.utils import timezone
 from .models import ShortURL, Viewer
 
 #
-BASE_URL = 'http://localhost:8001/links/'
-BASE_SHORT_URL = 'http://localhost:8001/u/'
+BASE_URL = 'http://localhost:8000/links/'
+BASE_SHORT_URL = 'http://localhost:8000/u/'
 
 # hash salt when generate permanent url
 HASH_SALT = 'MEOW'
