@@ -1,108 +1,105 @@
-# Shorten url
+# Shorten URL
 
-![](https://img.shields.io/badge/Django-2.0-blue.svg) *(以2.0開發，但應該可以相容到很久之前的版本)*
+![](https://img.shields.io/badge/Django-2.0-blue.svg)
 
-1. 簡單生成如 goo.gl/xxxx 的短網址 `https://yourdomain.com/u/asdf`
+for more detail about shorten URL system you can check my blog: 
+[短網址系統開發心得](https://deephank.tw/blog/shorten-url-system/)
 
-2. 自訂網址 `https://yourdomain.com/links/hank_has_no_life` 的meta tag 使得在 FB、Line 等達到自訂縮圖、標題的效果。
+- [Feature](#feature)
+- [Quick start](#quick-start)
+- [Merge to exist django project](#merge-to-exist-django-project)
+- [Some screenshot](#screenshot)
+- [reference](#ref)
+- [Contribution](#contribution)
 
-3. 可以查看流量統計圖
+## Feature
 
-- [Usage](#usage)
-- [Installation](#installation)
-- [Demo](#demo)
-    - [快速生成](#fast-gernerate)
-    - [自訂網址](#custom-gernerate)
-    - [錯誤訊息](#錯誤訊息)
-    - [全部的網址列表](#全部的網址列表)
-    - [瀏覽統計圖](#瀏覽統計圖)
+### Fast generate
+like goo.gl, paste a URL and click -> get shortened URL!
 
-## Usage
-
-> https://tedxntust.com/links/hank
-> 
-> 可以自訂網址，標題、描述和縮圖也可以
+### Costom gernerate
+enable custom title,description and thumbnail for facebook (and other social media) link preview.
 
 ![](https://i.imgur.com/4fs2IOR.png)
 
+### Analysis
+enable to track views.
 
+![](https://i.imgur.com/zM90mPW.png)
 
-## Installation
+## Quick start
+> example site
+```
+$ git clone https://github.com/kehanlu/shorten_url
+$ cd django
 
+# should have django 2.0 enviroment 
+
+$ python manage.py migrate
+$ python manage.py runserver
+
+# localhost:8000/links
+# enjoy! 
+```
+
+## Merge to exist django project
+
+> is quite easy!
+> 
+
+### move folder
+put app & template folder to the right place
+
+### run
 ```
 $ python manage.py migrate
 ```
 
-#### settings.py
+### modify some codes
 
+**yoursite/settings.py**
 ```python
 INSTALLED_APP = [
   # ...
   'links',
 ]
 
-# 並設定 STATIC_URL、MEDIA_URL 等等
-```
-
-#### yoursite/urls.py
-
-```python
-from django.urls import path, include
-import links
-urlpatterns = [
-    # ...
-    
-    # links
-    path('links/', include('links.urls')),
-    path('u/<str:permanent_url>/', links.views.perm_url)
-]
+# finely set STATIC_URL and MEDIA_URL
+# see django doc:
+# https://docs.djangoproject.com/en/2.0/howto/static-files/
 ```
 
 
-#### links/views.py
-
+**links/views.py**
 ```python
-# 短網址的 BASE 以 http...開頭
+# BASE should start with 'http://' or 'https://'
 BASE_URL = 'https://yourdomain.com/links/'
 BASE_SHORT_URL = 'https://yourdomain.com/u/'
 
-# 生成永久網址的 hash_salt
+# hash_salt for generate permanent url
 HASH_SALT = 'meow'
 
-# 自訂轉址的預設值
+# default value for custom url
 DEFAULT_NAME = ''
 DEFAULT_TITLE = ''
 DEFAULT_DESCRIPTION = ''
-
 ```
 
-#### static/images/default_thumbnail.png
-自訂轉址的預設圖
+**static/images/default_thumbnail.png**
 
+put a image for default thumbnail!
 
-## Demo
-
-### Fast Gernerate
-輸入網址，然後按下按鈕，大概等個 0.5 秒就跑出來了～
+## Screenshot
 ![](https://i.imgur.com/ea9lgOt.png)
-
-### Custom Gernerate
-
-可以額外設定網址名稱、標題、描述、縮圖
 
 ![](https://i.imgur.com/XZnNHKo.png)
 
-![](https://i.imgur.com/YufDDpR.png)
-
-### 錯誤訊息
-
-![](https://i.imgur.com/D4o9D1S.png)
-
-
-### 全部的網址列表
-
-![](https://i.imgur.com/c4Mcli3.png)
-
-### 瀏覽統計圖
-
 ![](https://i.imgur.com/zM90mPW.png)
+
+## ref
+
+[bulma](http://bulma.io/) (CSS framework)
+
+## Contribution
+
+i have no idea now, maybe open an issue! tks
