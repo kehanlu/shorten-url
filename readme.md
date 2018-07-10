@@ -98,8 +98,8 @@ put a image for default thumbnail!
 
 ## ref
 
-[bulma](http://bulma.io/) (CSS framework)
-
+[Bulma](https://bulma.io/) (CSS framework)
+[Chart js](https://www.chartjs.org/)(draw Chart)
 ## Contribution
 
 i have no idea now, maybe open an issue! tks
